@@ -21,23 +21,23 @@ jobs:
         run: python -m pip install --upgrade pip -r requirements.txt
       - name: ACS population by county
         run: |
-             python ETL-Pipeline/venv/main.py \
+             python venv/main.py \
              -local_source \
              -name acs_population_counties \
-             ETL-Pipeline/venv/acs_5yr_population_data.csv \
+             venv/acs_5yr_population_data.csv \
              $BITDOTIO_USER/$BITDOTIO_REPO.population
       - name: NYT cases by county
         run: |
-             python ETL-Pipeline/venv/main.py \
+             python venv/main.py \
              -local_source \
              -name nyt_cases_counties \
-             'ETL-Pipeline/venv/trial.csv' \
+             venv/trial.csv \
              $BITDOTIO_USER/$BITDOTIO_REPO.covidcases
       - name: CDC vaccines by county
       - name: Create CA report table
         run: |
-             python vETL-Pipeline/env/sql_executor.py \
-             ETL-Pipeline/venv/ca_covid_data.sql \
+             python /venv/sql_executor.py \
+             venv/ca_covid_data.sql \
              $BITDOTIO_USER \
              $BITDOTIO_REPO
 
