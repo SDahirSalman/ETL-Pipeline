@@ -31,8 +31,8 @@ date,county,state,fips,cases,deaths
 2020-01-30,Los Angeles,California,06037,1,0
 2020-01-30,Orange,California,06059,1,0
 2020-01-30,Cook,Illinois,17031,2,0
-2020-01-30,Snohomish,Washington,53061,1,0
-2020-01-31,Maricopa,Arizona,04013,1,0
-2020-05-05,Los Angeles,California,06037,1,0
+2024-01-30,Snohomish,Washington,53061,1,0
+2023-01-31,Maricopa,Arizona,04013,1,0
+2022-05-05,Los Angeles,California,06037,1,0
 2022-02-01,Orange,California,06059,1,0
 2022-05-01,Santa Clara,California,06085,1,0
