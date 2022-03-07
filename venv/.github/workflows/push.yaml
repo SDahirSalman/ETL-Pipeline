@@ -1,8 +1,8 @@
 name: Main Deploy
 on:
-  Push:
+  push:
     branches:
-    -main
+     - main
 jobs:
   extract-transform-load:
     runs-on: ubuntu-latest
@@ -10,13 +10,13 @@ jobs:
       PG_CONN_STRING: ${{ secrets.PG_CONN_STRING }}
       BITDOTIO_USER: SDahirSalman
       BITDOTIO_REPO: coviddata
-     steps:
+    steps:
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.9.1'
       - name: Install dependencies
         run: python -m pip install --upgrade pip -r requirements.txt
       - name: ACS population by county
