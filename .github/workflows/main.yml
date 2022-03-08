@@ -1,8 +1,8 @@
 name: Main Deploy
-on:
-  push:
-    branches:  
-     - main
+on: 
+  push: 
+    branches:
+    - main
 jobs:
   extract-transform-load:
     runs-on: ubuntu-latest
@@ -18,25 +18,24 @@ jobs:
         with:
           python-version: '3.7'
       - name: Install dependencies
-      - run: python -m pip install --upgrade pip -r requirements.txt
+        run: python -m pip install --upgrade pip -r requirements.txt
       - name: ACS population by county
-      - run: |
+        run: |
              python venv/main.py \
              -local_source \
              -name acs_population_counties \
              venv/acs_5yr_population_data.csv \
              $BITDOTIO_USER/$BITDOTIO_REPO.population
       - name: NYT cases by county
-      - run: |
+        run: |
              python venv/main.py \
              -local_source \
              -name nyt_cases_counties \
              venv/trial.csv \
              $BITDOTIO_USER/$BITDOTIO_REPO.covidcases
-      - name: CDC vaccines by county
       - name: Create CA report table
-      - run: |
-             python /venv/sql_executor.py \
+        run: |
+             python venv/sql_executor.py \
              venv/ca_covid_data.sql \
              $BITDOTIO_USER \
              $BITDOTIO_REPO
