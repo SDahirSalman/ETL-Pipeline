@@ -35,7 +35,7 @@ jobs:
              $BITDOTIO_USER/$BITDOTIO_REPO.covidcases
       - name: CDC vaccines by county
       - name: Create CA report table
-      -  run: |
+      - run: |
              python /venv/sql_executor.py \
              venv/ca_covid_data.sql \
              $BITDOTIO_USER \
