@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.7'
       - name: Install dependencies
-        run: python -m pip install --upgrade pip -r requirements.txt
+        run: python -m pip install --upgrade pip -r venv/requirements.txt
       - name: ACS population by county
         run: |
              python venv/main.py \
