@@ -23,6 +23,14 @@ def _fips_cleaner(code):
     return code.astype(str).str.extract('(^[^/.]*).*', expand=False).str.zfill(5)
 
 
+def questions_df(df):
+    df = df.filter(['user_id',  'title', 'tags'])
+    return df
+
+def answers_df(df):
+    df = df.filter(['id','title', 'body', 'owner_user_id','owner_display_name', 'parent_id'])
+    return df
+
 def nyt_cases_counties(df):
     """Transforms NYT county-level COVID data"""
     # Cast date as datetime

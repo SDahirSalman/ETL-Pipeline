@@ -5,11 +5,15 @@ Currently only supports GET from URL or local file.
 
 import io
 import logging
-
+from google.cloud import bigquery
+from google.oauth2 import service_account
+from google.auth.transport import requests
 import pandas as pd
 import requests
-
-
+path = 'pragmatic-port-344220-4fde2f3d1f5e.json'
+credentials = service_account.Credentials.from_service_account_file(path)
+project_id = 'pragmatic-port-344220'
+client = bigquery.Client(credentials= credentials,project=project_id)
 logger = logging.getLogger(__name__)
 
 
@@ -43,3 +47,8 @@ def csv_from_local(path):
     DataFrame
     """
     return pd.read_csv(path, low_memory=False)
+
+def from_big_query(table_path):
+    sql = "SELECT * FROM " + table_path + " LIMIT 1000"
+    df = client.query(sql).to_dataframe()
+    return df 

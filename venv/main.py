@@ -30,7 +30,7 @@ if not os.getenv('PG_CONN_STRING'):
 PG_CONN_STRING = os.getenv('PG_CONN_STRING')
 
 
-def main(src, dest, local_src, validate_data, options):
+def main(src, dest, bigquery, validate_data, options):
     """
     Executes ETL pipeline for a single table.
 
@@ -43,8 +43,8 @@ def main(src, dest, local_src, validate_data, options):
         URL for source data extraction.
     dest : str
         Fully-qualified table for load into bit.io.
-    local_src : boolean
-        True if src is path to a local csv file.
+    bigquery : boolean
+        True if src is path to a local bigquery file.
     validate_data : boolean
         True if data validation should be run.
     options : dict
@@ -52,8 +52,8 @@ def main(src, dest, local_src, validate_data, options):
     """
     # EXTRACT data
     logger.info('Starting extract...')
-    if local_src:
-        df = extract.csv_from_local(src)
+    if bigquery:
+        df = extract.from_big_query(src)
     else:
         df = extract.csv_from_get_request(src)
     # TRANSFORM data
@@ -78,7 +78,7 @@ def main(src, dest, local_src, validate_data, options):
         logger.info(f"No data validation specified, skipping to load step.")
     # LOAD data
     logger.info(f"Loading data to bit.io...")
-    load.to_table(df, dest, PG_CONN_STRING)
+    load.to_table(df, dest,PG_CONN_STRING)
     logger.info(f"Data loaded to bit.io.")
 
 
@@ -86,9 +86,9 @@ if __name__ == '__main__':
     # Parse command line options and arguments
     logger.info('Parsing command...')
     opts = [opt[1:] for opt in sys.argv[1:] if opt.startswith("-")]
-    local_source = 'local_source' in opts
+    bigquery = 'big_query' in opts
     validate_data = 'validate_data' in opts
-    opts = [opt for opt in opts if opt not in ['local_source', 'validate_data']]
+    opts = [opt for opt in opts if opt not in ['big_query', 'validate_data']]
     args = [arg for arg in sys.argv[1:] if not arg.startswith("-")]
     # Validation
     if len(args) != len(opts) + 2:
@@ -100,4 +100,4 @@ if __name__ == '__main__':
 
     # Execute ETL
     logger.info('Starting ETL...')
-    main(source, destination, local_source, validate_data, option_args)
+    main(source, destination, bigquery, validate_data, option_args)
