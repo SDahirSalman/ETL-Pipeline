@@ -9,7 +9,7 @@ jobs:
     env: 
       PG_CONN_STRING: postgresql://SDahirSalman_demo_db_connection:37UmC_mvRKMxTiPFpszmANYZrDNkT@db.bit.io
       BITDOTIO_USER: SDahirSalman
-      BITDOTIO_REPO: coviddata
+      BITDOTIO_REPO: stackoverflow
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
